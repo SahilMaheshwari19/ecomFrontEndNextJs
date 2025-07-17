@@ -14,6 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
+import { ModeToggle } from "./ui/ModeToggle";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -65,8 +66,12 @@ export function Navbar() {
           priority
         />
       </div>
+
       <NavigationMenu viewport={false}>
         <NavigationMenuList className="flex items-center gap-4 mr-32">
+          <div>
+            <ModeToggle />
+          </div>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Home</NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -99,7 +104,7 @@ export function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Add Product</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                 {components.map((component) => (
@@ -123,58 +128,19 @@ export function Navbar() {
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>List</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[300px] gap-4">
-                <li>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">
-                      <div className="font-medium">Components</div>
-                      <div className="text-muted-foreground">
-                        Browse all components in the library.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">
-                      <div className="font-medium">Documentation</div>
-                      <div className="text-muted-foreground">
-                        Learn how to use the library.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">
-                      <div className="font-medium">Blog</div>
-                      <div className="text-muted-foreground">
-                        Read our latest blog posts.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-              </ul>
-            </NavigationMenuContent>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/docs">Wish List</Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/docs">Cart</Link>
+          </NavigationMenuLink>
+
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Simple</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[200px] gap-4">
-                <li>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">Components</Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">Documentation</Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href="#">Blocks</Link>
-                  </NavigationMenuLink>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>With Icon</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Profile</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[200px] gap-4">
                 <li>
@@ -193,7 +159,7 @@ export function Navbar() {
                   <NavigationMenuLink asChild>
                     <Link href="#" className="flex-row items-center gap-2">
                       <CircleCheckIcon />
-                      Done
+                      Log Out
                     </Link>
                   </NavigationMenuLink>
                 </li>
