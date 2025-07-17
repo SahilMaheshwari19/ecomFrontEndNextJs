@@ -1,5 +1,5 @@
 import React from "react";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../../components/ui/ModeToggle";
 
 function page() {
   return (
