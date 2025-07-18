@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 const DisplayAllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const trcss = "text-lg text-orange-400 font-bold";
   useEffect(() => {
     axios
       .get<Product[]>("http://localhost:8080/api/products")
@@ -31,8 +31,10 @@ const DisplayAllProducts = () => {
   }, []);
 
   return (
-    <div className="">
-      <div>DisplayAllProducts</div>
+    <div>
+      <div className="my-4 items-center text-center">
+        <h1 className="font-bold">All Products</h1>
+      </div>
       {loading ? (
         <div className="text-center mt-40 text-purple-700 text-xl">
           Loading Products
@@ -56,9 +58,31 @@ const DisplayAllProducts = () => {
                   )}
                 </figure>
                 <div className="flex flex-col gap-y-1.5 pt-1 card-body items-center text-center">
-                  <CardTitle className="mt-1">{products.brand}</CardTitle>
-                  <CardTitle>{products.name}</CardTitle>
-                  <Button className="my-3 cursor-pointer ">Buy Now</Button>
+                  <table>
+                    <tr>
+                      <td className={`${trcss}`}>Name : </td>
+                      <td>
+                        <CardTitle>{products.name}</CardTitle>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={`${trcss}`}>Brand : </td>
+                      <td>
+                        <CardTitle className="mt-1">{products.brand}</CardTitle>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={`${trcss}`}>Price : </td>
+                      <td>
+                        <CardTitle>{products.price}</CardTitle>
+                      </td>
+                    </tr>
+                  </table>
+                  <div className="flex justify-around gap-3 my-3">
+                    <Button className="cursor-pointer ">Add to cart</Button>
+                    <Button className="cursor-pointer ">Buy Now</Button>
+                    <Button className="cursor-pointer ">Add to Wishlist</Button>
+                  </div>
                 </div>
               </div>
             </Card>
