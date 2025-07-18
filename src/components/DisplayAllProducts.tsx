@@ -10,6 +10,7 @@ import {
 import { Product } from "@/types/ProductList";
 import axios from "axios";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 const DisplayAllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,7 +31,7 @@ const DisplayAllProducts = () => {
   }, []);
 
   return (
-    <div className="m-15">
+    <div className="">
       <div>DisplayAllProducts</div>
       {loading ? (
         <div className="text-center mt-40 text-purple-700 text-xl">
@@ -39,35 +40,27 @@ const DisplayAllProducts = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {products.map((products) => (
-            <Card
-              key={products.id}
-              className="w-full max-w-sm hover:bg-fuchsia-200 transition"
-            >
-              <CardHeader>
-                <div className="flex flex-col items-center shadow ">
-                  <CardDescription>
-                    {products.imageName ? (
-                      <div>
-                        <Image
-                          src={`http://localhost:8080/api/products/${products.id}/image`}
-                          alt={products.name}
-                          className="rounded size-60 p-4"
-                          height={150}
-                          width={150}
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        <p>No IMAGE AVAILABLE</p>
-                        <p>Enter your email below to login to your account</p>
-                      </>
-                    )}
-                  </CardDescription>
+            <Card key={products.id} className="w-full max-w-sm ">
+              <div className="card bg-base-100 w-96 shadow-sm">
+                <figure className="justify-items-center-safe py-0.5">
+                  {products.imageName ? (
+                    <Image
+                      src={`http://localhost:8080/api/products/${products.id}/image`}
+                      alt={products.name}
+                      height={180}
+                      width={375}
+                      className="rounded-2xl"
+                    />
+                  ) : (
+                    <p>No IMAGE AVAILABLE</p>
+                  )}
+                </figure>
+                <div className="flex flex-col gap-y-1.5 pt-1 card-body items-center text-center">
+                  <CardTitle className="mt-1">{products.brand}</CardTitle>
                   <CardTitle>{products.name}</CardTitle>
-                  <CardTitle>{products.brand}</CardTitle>
+                  <Button className="my-3 cursor-pointer ">Buy Now</Button>
                 </div>
-              </CardHeader>
-              <CardContent></CardContent>
+              </div>
             </Card>
           ))}
         </div>
