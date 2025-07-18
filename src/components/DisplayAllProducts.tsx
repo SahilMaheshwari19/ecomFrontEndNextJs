@@ -42,48 +42,49 @@ const DisplayAllProducts = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {products.map((products) => (
-            <Card key={products.id} className="w-full max-w-sm ">
-              <div className="card bg-base-100 w-96 shadow-sm">
-                <figure className="justify-items-center-safe py-0.5">
-                  {products.imageName ? (
-                    <Image
-                      src={`http://localhost:8080/api/products/${products.id}/image`}
-                      alt={products.name}
-                      height={180}
-                      width={375}
-                      className="rounded-2xl"
-                    />
-                  ) : (
-                    <p>No IMAGE AVAILABLE</p>
-                  )}
-                </figure>
-                <div className="flex flex-col gap-y-1.5 pt-1 card-body items-center text-center">
-                  <table>
-                    <tr>
-                      <td className={`${trcss}`}>Name : </td>
-                      <td>
-                        <CardTitle>{products.name}</CardTitle>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className={`${trcss}`}>Brand : </td>
-                      <td>
-                        <CardTitle className="mt-1">{products.brand}</CardTitle>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className={`${trcss}`}>Price : </td>
-                      <td>
-                        <CardTitle>{products.price}</CardTitle>
-                      </td>
-                    </tr>
-                  </table>
-                  <div className="flex justify-around gap-3 my-3">
-                    <Button className="cursor-pointer ">Add to cart</Button>
-                    <Button className="cursor-pointer ">Buy Now</Button>
-                    <Button className="cursor-pointer ">Add to Wishlist</Button>
-                  </div>
-                </div>
+            <Card
+              key={products.id}
+              className="w-full max-w-sm flex flex-col justify-between bg-base-100 shadow-sm"
+            >
+              <div className="flex justify-center items-center h-48">
+                {products.imageName ? (
+                  <Image
+                    src={`http://localhost:8080/api/products/${products.id}/image`}
+                    alt={products.name}
+                    height={180}
+                    width={375}
+                    className="rounded-2xl "
+                  />
+                ) : (
+                  <p>No IMAGE AVAILABLE</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-y-1.5 pt-1 card-body items-center text-center">
+                <table>
+                  <tr>
+                    <td className={`${trcss}`}>Name : </td>
+                    <td>
+                      <CardTitle>{products.name}</CardTitle>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={`${trcss}`}>Brand : </td>
+                    <td>
+                      <CardTitle className="mt-1">{products.brand}</CardTitle>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={`${trcss}`}>Price : </td>
+                    <td>
+                      <CardTitle>{products.price}</CardTitle>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div className="flex justify-around gap-3 my-3">
+                <Button className="cursor-pointer ">Add to cart</Button>
+                <Button className="cursor-pointer ">Buy Now</Button>
+                <Button className="cursor-pointer ">Add to Wishlist</Button>
               </div>
             </Card>
           ))}
