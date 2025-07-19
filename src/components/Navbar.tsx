@@ -81,7 +81,7 @@ export function Navbar() {
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href="/docs">Docs</Link>
+              <Link href="/">Docs</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -89,11 +89,11 @@ export function Navbar() {
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href="/docs">Wish List</Link>
+              <Link href="/wishlist">Wish List</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/docs">Cart</Link>
+            <Link href="/cart">Cart</Link>
           </NavigationMenuLink>
 
           <NavigationMenuItem>
