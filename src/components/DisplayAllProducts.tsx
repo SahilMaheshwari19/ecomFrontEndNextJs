@@ -87,8 +87,10 @@ const DisplayAllProducts = () => {
                   </table>
                 </div>
               </Link>
-              <div className="flex justify-around gap-3 mb-3">
+              <div className="flex justify-around gap-3 mb-3 ">
                 <Button
+                  type="submit"
+                  variant="outline"
                   className="cursor-pointer outline"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -107,6 +109,8 @@ const DisplayAllProducts = () => {
                   Buy Now
                 </Button>
                 <Button
+                  type="submit"
+                  variant="outline"
                   className="cursor-pointer outline"
                   onClick={(e) => {
                     e.stopPropagation();
