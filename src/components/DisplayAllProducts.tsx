@@ -6,12 +6,16 @@ import axios from "axios";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { addToCart } from "@/store/cartSlice";
+import { toast } from "sonner";
 
 const DisplayAllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const trcss = "text-lg text-orange-400 font-bold ";
-
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     axios
       .get<Product[]>("http://localhost:8080/api/products")
@@ -24,6 +28,7 @@ const DisplayAllProducts = () => {
         console.error("Error fetching products:", error);
         setLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -92,9 +97,9 @@ const DisplayAllProducts = () => {
                   type="submit"
                   variant="outline"
                   className="cursor-pointer outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // handle add to cart
+                  onClick={() => {
+                    dispatch(addToCart(product));
+                    toast("Added to cart", { description: product.name });
                   }}
                 >
                   Add to cart
