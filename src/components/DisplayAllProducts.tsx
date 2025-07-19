@@ -6,8 +6,8 @@ import axios from "axios";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
 import { addToCart } from "@/store/cartSlice";
 import { toast } from "sonner";
 

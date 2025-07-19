@@ -28,12 +28,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
+import { addToCart } from "@/store/cartSlice";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { productId } = useParams<{ productId: string }>();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     axios
       .get<Product>(`http://localhost:8080/api/products/${productId}`)
@@ -126,7 +131,14 @@ const ProductDetails = () => {
                 <HeartIcon />
                 Add to Wishlist
               </Button>
-              <Button variant="outline" className="cursor-pointer">
+              <Button
+                variant="outline"
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(addToCart(productDetail));
+                  toast("Added to cart", { description: productDetail.name });
+                }}
+              >
                 <ShoppingCartIcon />
                 Add to Cart
               </Button>
