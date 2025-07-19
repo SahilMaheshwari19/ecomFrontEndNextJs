@@ -36,7 +36,7 @@ const DisplayAllProducts = () => {
           Loading Products
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 p-2 sm:p-4 md:p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 p-2 sm:p-4 md:p-5 min-w-[312px]">
           {products.map((product) => (
             <Card
               key={product.id}

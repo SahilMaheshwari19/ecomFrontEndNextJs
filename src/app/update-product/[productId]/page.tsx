@@ -1,14 +1,10 @@
 "use client";
-
 import ProductForm from "@/components/ProductForm";
 import { ProductDTO } from "@/types/ProductList";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-
-// type Props = {};
 
 const UpdateProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
