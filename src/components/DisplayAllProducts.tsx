@@ -18,7 +18,9 @@ const DisplayAllProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     axios
-      .get<Product[]>("http://localhost:8080/api/products")
+      .get<Product[]>("http://localhost:8080/api/products", {
+        withCredentials: true, // ✅ THIS sends cookies with request
+      })
       .then((response) => {
         setProducts(response.data);
         setLoading(false);

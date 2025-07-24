@@ -14,8 +14,26 @@ import {
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
 import { ModeToggle } from "./ui/ModeToggle";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
+  const router = useRouter();
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+      router.push("/login");
+    } catch (error) {
+      console.error(error);
+      alert("Logout failed. Try again.");
+    }
+  };
+
   return (
     <div className="relative flex w-full items-center justify-between top-0 border-4 border-amber-400 p-5 z-30 ">
       <div className="flex items-center ml-32">
@@ -114,10 +132,13 @@ export function Navbar() {
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="#" className="flex-row items-center gap-2">
+                    <div
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
                       <CircleCheckIcon />
-                      Log Out
-                    </Link>
+                      <span>Log Out</span>
+                    </div>
                   </NavigationMenuLink>
                 </li>
               </ul>

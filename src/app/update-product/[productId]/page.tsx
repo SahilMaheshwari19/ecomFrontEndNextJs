@@ -13,7 +13,9 @@ const UpdateProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get<ProductDTO>(`http://localhost:8080/api/products/${productId}`)
+      .get<ProductDTO>(`http://localhost:8080/api/products/${productId}`, {
+        withCredentials: true, // ✅ THIS sends cookies with request
+      })
       .then((response) => {
         setProductDetail(response.data);
         setLoading(false);
@@ -44,6 +46,7 @@ const UpdateProductDetails = () => {
         `http://localhost:8080/api/product/${productId}`,
         formData,
         {
+          withCredentials: true, // ✅ THIS sends cookies with request
           headers: {
             "Content-Type": "multipart/form-data",
           },

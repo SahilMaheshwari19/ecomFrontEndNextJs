@@ -24,6 +24,7 @@ const AddProduct = () => {
         "http://localhost:8080/api/product",
         formData,
         {
+          withCredentials: true, // ✅ THIS sends cookies with request
           headers: {
             "Content-Type": "multipart/form-data",
           },

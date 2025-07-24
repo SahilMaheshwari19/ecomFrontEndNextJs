@@ -41,7 +41,9 @@ const ProductDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     axios
-      .get<Product>(`http://localhost:8080/api/products/${productId}`)
+      .get<Product>(`http://localhost:8080/api/products/${productId}`, {
+        withCredentials: true, // ✅ THIS sends cookies with request
+      })
       .then((response) => {
         setProductDetail(response.data);
         setLoading(false);
@@ -58,7 +60,9 @@ const ProductDetails = () => {
 
   const handleDelete = (productId: string) => {
     try {
-      axios.delete(`http://localhost:8080/api/product/${productId}`);
+      axios.delete(`http://localhost:8080/api/product/${productId}`, {
+        withCredentials: true, // ✅ THIS sends cookies with request
+      });
       router.push("/");
     } catch (error) {
       console.error("Error deleting product:", error);
