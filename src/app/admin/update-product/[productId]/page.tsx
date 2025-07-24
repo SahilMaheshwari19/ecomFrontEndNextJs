@@ -41,15 +41,11 @@ const UpdateProductDetails = () => {
         formData.append("imageFile", imageFile);
       }
 
-      const response = await tokenApi.put(
-        `/api/product/${productId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.put(`/api/product/${productId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Product Updated Successfully: ", response.data);
     } catch (error) {
       console.error("Error Updating Product:", error);

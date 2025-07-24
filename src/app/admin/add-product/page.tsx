@@ -1,7 +1,7 @@
 "use client";
 import ProductForm from "@/components/ProductForm";
 import type { ProductDTO } from "@/types/ProductList";
-import axios from "axios";
+import tokenApi from "@/utils/axiosConfig";
 import { motion } from "framer-motion";
 
 const AddProduct = () => {
@@ -20,15 +20,11 @@ const AddProduct = () => {
       formData.append("product", productBlob);
       formData.append("imageFile", imageFile);
 
-      const response = await axios.post(
-        "http://localhost:8080/api/product",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await tokenApi.post("/api/product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Product Added Successfully: ", response.data);
       alert("Product Added Successfully!");
     } catch (error) {

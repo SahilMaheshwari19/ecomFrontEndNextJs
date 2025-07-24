@@ -70,7 +70,7 @@ export function Navbar() {
             <NavigationMenuTrigger>Add Product</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-2 md:w-[200px] md:grid-cols-1 lg:w-[200px]">
-                <ListItem title="Add Product" href="/add-product">
+                <ListItem title="Add Product" href="/admin/add-product">
                   Add A Product
                 </ListItem>
               </ul>

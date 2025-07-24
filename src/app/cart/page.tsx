@@ -10,7 +10,6 @@ import {
 } from "@/store/cartSlice";
 import { toast } from "sonner";
 import { SquareMinus, SquarePlus } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();

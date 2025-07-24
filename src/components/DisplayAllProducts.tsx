@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Product } from "@/types/ProductList";
-import axios from "axios";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -10,15 +9,17 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { addToCart } from "@/store/cartSlice";
 import { toast } from "sonner";
+import tokenApi from "@/utils/axiosConfig";
 
 const DisplayAllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const trcss = "text-lg text-orange-400 font-bold ";
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
-    axios
-      .get<Product[]>("http://localhost:8080/api/products")
+    tokenApi
+      .get<Product[]>("/api/products")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);

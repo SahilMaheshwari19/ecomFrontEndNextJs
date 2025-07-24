@@ -32,6 +32,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { addToCart } from "@/store/cartSlice";
 import { toast } from "sonner";
+import tokenApi from "@/utils/axiosConfig";
 
 const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState<Product | null>(null);
@@ -40,8 +41,8 @@ const ProductDetails = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    axios
-      .get<Product>(`http://localhost:8080/api/products/${productId}`)
+    tokenApi
+      .get<Product>(`/api/products/${productId}`)
       .then((response) => {
         setProductDetail(response.data);
         setLoading(false);
@@ -58,7 +59,7 @@ const ProductDetails = () => {
 
   const handleDelete = (productId: string) => {
     try {
-      axios.delete(`http://localhost:8080/api/product/${productId}`);
+      tokenApi.delete(`/api/product/${productId}`);
       router.push("/");
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -144,7 +145,7 @@ const ProductDetails = () => {
               </Button>
             </CardFooter>
             <CardFooter className="flex gap-2">
-              <Link href={`/update-product/${productDetail.id}`}>
+              <Link href={`/admin/update-product/${productDetail.id}`}>
                 <Button type="submit" className="cursor-pointer">
                   Update
                 </Button>
