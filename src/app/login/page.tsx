@@ -16,6 +16,10 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { setUserDetails } from "@/store/userSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
+import { toast } from "sonner";
 
 type loginInputs = {
   username: string;
@@ -23,6 +27,7 @@ type loginInputs = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -44,10 +49,19 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Failed to login");
       }
+      const dataOfUser = await response.json();
+      console.log("Login Success Data:", dataOfUser); // { message, username, role }
+      dispatch(
+        setUserDetails({
+          username: dataOfUser.username,
+          userrole: dataOfUser.role,
+        })
+      );
       //redirect upon successful login
       router.push("/");
+      toast("LOGGED IN");
     } catch (error) {
-      alert("Something Went Wrong");
+      toast.error("Something went wrong during login.");
       console.error(error);
     }
   };
