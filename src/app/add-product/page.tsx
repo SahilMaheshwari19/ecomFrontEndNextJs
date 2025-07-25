@@ -1,10 +1,13 @@
 "use client";
 import ProductForm from "@/components/ProductForm";
+import { RootState } from "@/store";
 import type { ProductDTO } from "@/types/ProductList";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const AddProduct = () => {
+  const user = useSelector((state: RootState) => state.user);
   const onSubmit = async (data: ProductDTO, imageFile: File | null) => {
     if (!imageFile) {
       alert("Please upload an image before submitting.");
@@ -38,6 +41,9 @@ const AddProduct = () => {
     }
   };
 
+  if (user.userrole !== "ROLE_ADMIN") {
+    return <p>Unauthorized</p>;
+  }
   return (
     <section
       id="addProduct"

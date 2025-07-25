@@ -5,11 +5,14 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const UpdateProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
   const [productDetail, setProductDetail] = useState<ProductDTO | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     axios
@@ -59,6 +62,9 @@ const UpdateProductDetails = () => {
     }
   };
 
+  if (user.userrole !== "ROLE_ADMIN") {
+    return <p>Unauthorized</p>;
+  }
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center text-xl text-purple-700">
