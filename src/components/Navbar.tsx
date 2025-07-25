@@ -20,10 +20,14 @@ export function Navbar() {
   const router = useRouter();
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8080/logout", {
+      const response = await fetch("http://localhost:8080/logsout", {
         method: "POST",
         credentials: "include",
       });
+      console.log("Logout response status:", response.status);
+      const text = await response.text();
+      console.log("Logout response text:", text);
+
       if (!response.ok) {
         throw new Error("Logout failed");
       }
