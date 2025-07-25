@@ -15,9 +15,12 @@ import {
 import Image from "next/image";
 import { ModeToggle } from "./ui/ModeToggle";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export function Navbar() {
   const router = useRouter();
+  const user = useSelector((state: RootState) => state.user);
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:8080/logsout", {
@@ -50,6 +53,17 @@ export function Navbar() {
             priority
           />
         </Link>
+        <div>
+          {user.username ? (
+            <div className="ml-6 px-3 py-1 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-300 text-black font-semibold shadow hover:shadow-md transition">
+              Welcome ! {user.username}
+            </div>
+          ) : (
+            <div className="ml-6 px-3 py-1 rounded-lg bg-neutral-300 text-neutral-800 font-medium shadow hover:shadow-md transition">
+              Please login
+            </div>
+          )}
+        </div>
       </div>
 
       <NavigationMenu viewport={false}>
