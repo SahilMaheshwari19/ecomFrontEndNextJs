@@ -17,34 +17,41 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-type loginInputs = {
+type signUpInputs = {
   username: string;
+  name: string;
+  email: string;
+  phone?: string;
   password: string;
 };
 
-const Login = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginInputs>();
+  } = useForm<signUpInputs>();
   const router = useRouter();
 
-  const onSubmitHandler = async (data: loginInputs) => {
+  const onSubmitHandler = async (data: signUpInputs) => {
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      console.log(data);
+      const response = await fetch("http://localhost:8080/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: data.username,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
           password: data.password,
         }),
         credentials: "include", // ✅ include cookies in request and response
       });
       if (!response.ok) {
-        throw new Error("Failed to login");
+        throw new Error("Failed to SignUp");
       }
-      //redirect upon successful login
+      //redirect upon successful SignUp
       router.push("/");
     } catch (error) {
       alert("Something Went Wrong");
@@ -65,14 +72,14 @@ const Login = () => {
     >
       <Card className="w-full max-w-sm py-12">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Sign Up</CardTitle>
           <CardDescription>
-            Enter your username below to login to your account
+            Enter the following details to create your account
           </CardDescription>
           <CardAction>
-            <Link href={"/register"}>
+            <Link href={"/login"}>
               <Button variant="link" className="cursor-pointer">
-                Sign Up
+                Login Instead
               </Button>
             </Link>
           </CardAction>
@@ -85,6 +92,7 @@ const Login = () => {
                 <Input
                   id="username"
                   type="text"
+                  placeholder="Choose a unique Username"
                   required
                   {...register("username", { required: true })}
                 />
@@ -92,6 +100,52 @@ const Login = () => {
                   <p className="text-red-500 text-sm mt-1">
                     {errors.username.type === "required" &&
                       "username is required."}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Enter Your Name"
+                  required
+                  {...register("name", { required: true, maxLength: 100 })}
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.name.type === "required" && "name is required."}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  required
+                  {...register("email", { required: true })}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.type === "required" && "email is required."}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  type="text"
+                  placeholder="m@example.com"
+                  required
+                  {...register("phone", { required: true, maxLength: 10 })}
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.phone.type === "maxLength" &&
+                      "Max length is 10 characters."}
                   </p>
                 )}
               </div>
@@ -110,20 +164,14 @@ const Login = () => {
                     {errors.password.type === "required" && "Name is required."}
                   </p>
                 )}
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
               </div>
             </div>
             <CardFooter className="flex-col gap-2 my-3 p-2">
               <Button type="submit" className="w-full cursor-pointer">
-                Login
+                Sign Up
               </Button>
               <Button variant="outline" className="w-full cursor-pointer">
-                Login with Google
+                Sign Up with Google
               </Button>
             </CardFooter>
           </form>
@@ -133,4 +181,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
